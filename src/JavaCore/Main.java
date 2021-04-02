@@ -10,6 +10,18 @@ public class Main {
 
         HashMap<String, Integer> result2 = wordCount(createCollection());
         System.out.println(result2.toString());
+
+        PhoneBook phoneBook = new PhoneBook();
+        phoneBook.add("Иванов", "987879");
+        phoneBook.add("Петров", "867567");
+        phoneBook.add("Иванов", "845463");
+        try {
+            System.out.println(phoneBook.get("Петров"));
+            System.out.println(phoneBook.get("Иванов"));
+            System.out.println(phoneBook.get("Сидоров"));
+        } catch (PhoneBook.PhoneBookException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static ArrayList<String> uniq(ArrayList<String> array) {
