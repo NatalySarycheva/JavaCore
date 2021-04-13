@@ -8,7 +8,7 @@ public class Main {
 	    ForecastFetcher ff = new ForecastFetcher();
 
 	    try {
-	        String result = ff.fetchForecast();
+	        WeatherForecast result = ff.fetchForecast();
 	        System.out.println(result);
         } catch (IOException e) {
 	        System.out.println(e.getMessage());

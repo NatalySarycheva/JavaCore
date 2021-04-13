@@ -1,5 +1,7 @@
 package JavaCore;
 
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -12,15 +14,13 @@ public class ForecastFetcher {
     private final String API_KEY = "163ac294-f0b3-4a54-8cb6-126ef0150520";
     private final double ST_PT_LAT = 59.9386;
     private final double ST_PT_LON = 30.3141;
-    //GET https://api.weather.yandex.ru/v2/informers?lat=55.75396&lon=37.620393
-    //X-Yandex-API-Key: 3fc...7
     private final String BASE_HOST = "api.weather.yandex.ru";
     private final String API_VERSION = "v2";
     private final String FORECAST_API = "forecast";
 
 
 
-    public String fetchForecast() throws IOException {
+    public WeatherForecast fetchForecast() throws IOException {
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("https")
                 .host(BASE_HOST)
@@ -38,7 +38,8 @@ public class ForecastFetcher {
 
         Response response = httpClient.newCall(request).execute();
         String body = response.body().string();
-        return body;
-
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS);
+        return objectMapper.readValue(body, WeatherForecast.class);
     }
 }
