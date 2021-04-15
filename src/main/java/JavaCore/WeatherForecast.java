@@ -27,7 +27,10 @@ public class WeatherForecast {
 
     @Override
     public String toString() {
-        String result = "Погода в " + this.geoObject.toString() + "\n";
+        String result = "";
+        if (this.geoObject != null) {
+            result += "Погода в " + this.geoObject.toString() + "\n";
+        }
         for (Forecast forecast : this.forecasts) {
             result += forecast.toString() + "\n";
         }
